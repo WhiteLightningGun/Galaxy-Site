@@ -108,6 +108,7 @@ function probabilityField(p, x, y, dis, spr) {
     // xy_to_radius has been implemented for this, it will take arguments x, y
 
     // displacement (var dis) centres the distribution on a certain coordinate relative to r
+    // obviously the displacement will always be zero, i.e. at dead centre of galaxy
 
     // spread (var spr) defines how far it will spread out from the central point
 
@@ -123,14 +124,18 @@ function probabilityField(p, x, y, dis, spr) {
 }
 
 function getProbabilityField(){
+    //grab parameters from DOM
     array = []
-    var s_w = DIMENSIONS[S] //s_w means screen width
-for (var i = 0; i < s_w; i++){
-    for (var j = 0; j < s_w; j++){
-    array.push(probabilityField(0.11, i, j, 0, 7000));
-    }
-    }
-    return array;
+    var spread = document.getElementById("spreadRange").value;
+    var sW = DIMENSIONS[S] //sW means screen width
+
+    //generate probability field thereof
+    for (var i = 0; i < sW; i++){
+        for (var j = 0; j < sW; j++){
+        array.push(probabilityField(0.11, i, j, 0, spread));
+        }
+        }
+        return array;
 }
 
 function starField(probability_array) {
