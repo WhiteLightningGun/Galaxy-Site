@@ -6,30 +6,93 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.104.2">
-    <title>Sticky Footer Template · Bootstrap v5.2</title>
+    <title>Sticky Footer Navbar Template · Bootstrap v5.2</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sticky-footer/">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sticky-footer-navbar/">
 
 <link href="bootstrap.min.css" rel="stylesheet">
-<link href="style.css" rel="stylesheet">
 
-
-    
     <!-- Custom styles for this template -->
-    <link href="sticky-footer.css" rel="stylesheet">
+    <link href="sticky-footer-navbar.css" rel="stylesheet">
   </head>
   <body class="d-flex flex-column h-100">
     
+<header>
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Project Secondus</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
 <!-- Begin page content -->
 <main class="flex-shrink-0">
   <div class="container">
-    <h1 class="mt-5">HTML CANVAS</h1>
-    <p class="lead">Projecting a skymap to a vector based diagram.</p>
+    <h1 class="mt-5">Galaxy Simulificationatoristism</h1>
+    <p class="lead">
+      Use the controls below to experiment and create a galaxy, the powers of the universe bend to you...
+    </p>
+  </div>
+  <div class="container">
+    <button onclick="sizeCanvas(0)">Small Canvas</button>
+    <button onclick="sizeCanvas(1)">Big Canvas</button>
+  </div>
+
+  <div class="container">
+    <canvas id="CanvasBox" width="500" height="500" class="col-md-5 offset-md-2"></canvas>
+  </div>
+
+  <div class="container">
+  <form>
+    <div class="form-group">
+      <label for="spreadRange" label class="form-label">Star Spread</label>
+      <input type="range" min="2000" max="18000" value="8000" class="slider" onmouseup="drawCanvas()" id="spreadRange">
+    </div>
+
+    <div class="form-group">
+      <label for="starDensity" label class="form-label">Star Density</label>
+      <input type="range" min="1" max="15" value="2" class="slider" onmouseup="drawCanvas()" id="starDensity">
+    </div>
+
+    <div class="form-group">
+      <label for="armRadius" label class="form-label">Arm Radius</label>
+      <input type="range" min="50" max="300" value="150" class="slider" onmouseup="drawCanvas()" id="armRadius">
+    </div>
+
+    <div class="form-group">
+      <label for="fuzzFactor" label class="form-label">Fuzz Factor</label>
+      <input type="range" min="8" max="40" value="15" class="slider" onmouseup="drawCanvas()" id="fuzzFactor">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="thetaFactor">Theta Value</label>
+      <input type="range" min="1" max="800" value="650" class="slider" onmouseup="drawCanvas()" id="thetaFactor">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="spiralFactor">Spiral Factor</label>
+      <input type="range" min="1" max="100" value="30" class="slider" onmouseup="drawCanvas()" id="spiralFactor">
+    </div>
+  </form>
 </div>
 
-<div class="container">
-  <canvas id="myCanvas" width="300" height="300" class="img-responsive"></canvas>
-</div>
 </main>
 
 <footer class="footer mt-auto py-3 bg-light">
@@ -38,7 +101,8 @@
   </div>
 </footer>
 
-<script src="javascript.js" async="false"></script>
+    <script src="CurrentDateScript.js" async="false"></script>
+    <script src="CanvasScript.js" async="false"></script>
     
   </body>
 </html>
