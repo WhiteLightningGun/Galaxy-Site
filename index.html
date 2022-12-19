@@ -45,7 +45,7 @@
 <!-- Begin page content -->
 <main class="flex-shrink-0">
   <div class="container">
-    <h1 class="mt-5">Galaxy Simulificationatoristism</h1>
+    <h1 class="mt-5">Galaxy Simulator</h1>
     <p class="lead">
       Use the controls below to experiment and create a galaxy, the powers of the universe bend to you...
     </p>
@@ -60,36 +60,54 @@
   </div>
 
   <div class="container">
+
+  <div class="d-inline-flex p-2 bd-highlight">
   <form>
     <div class="form-group">
       <label for="spreadRange" label class="form-label">Star Spread</label>
       <input type="range" min="2000" max="18000" value="8000" class="slider" onmouseup="drawCanvas()" id="spreadRange">
     </div>
+  </div>
+
+  <div class="d-inline-flex p-2 bd-highlight">
 
     <div class="form-group">
       <label for="starDensity" label class="form-label">Star Density</label>
       <input type="range" min="1" max="15" value="2" class="slider" onmouseup="drawCanvas()" id="starDensity">
     </div>
+  
+  </div>
+
+  <div class="d-inline-flex p-2 bd-highlight">
 
     <div class="form-group">
       <label for="armRadius" label class="form-label">Arm Radius</label>
       <input type="range" min="50" max="300" value="150" class="slider" onmouseup="drawCanvas()" id="armRadius">
     </div>
+  </div>
 
+  <div class="d-inline-flex p-2 bd-highlight">
     <div class="form-group">
       <label for="fuzzFactor" label class="form-label">Fuzz Factor</label>
       <input type="range" min="8" max="40" value="15" class="slider" onmouseup="drawCanvas()" id="fuzzFactor">
     </div>
+  </div>
+
+  <div class="d-inline-flex p-2 bd-highlight">
 
     <div class="form-group">
       <label class="form-label" for="thetaFactor">Theta Value</label>
       <input type="range" min="1" max="800" value="650" class="slider" onmouseup="drawCanvas()" id="thetaFactor">
     </div>
+  </div>
 
+  <div class="d-inline-flex p-2 bd-highlight">
     <div class="form-group">
       <label class="form-label" for="spiralFactor">Spiral Factor</label>
       <input type="range" min="1" max="100" value="30" class="slider" onmouseup="drawCanvas()" id="spiralFactor">
     </div>
+  </div>
+
   </form>
 </div>
 
