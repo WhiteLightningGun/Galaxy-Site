@@ -12,6 +12,13 @@ var S = 0; //Selector variable
 var PROBABILITY = [] //Stores the probability scalar field
 var RADIUS = CENTRE_X*0.9;
 
+//LISTENERS
+
+var radius_input = document.getElementById('armRadius');
+
+radius_input.addEventListener('radius_input', drawCanvas());
+
+
 function sizeCanvas(s) {
     //Directly set cavas size according to switch
     S = s;
