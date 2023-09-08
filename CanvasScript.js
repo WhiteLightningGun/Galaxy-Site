@@ -1,21 +1,20 @@
 //CANVAS SECTION
 
-var canvas = document.getElementById("CanvasBox");
-var CTX = canvas.getContext("2d");
+let canvas = document.getElementById("CanvasBox");
+let CTX = canvas.getContext("2d");
 
-//DEFINE IMPORTANT VARIABLES
-var DIMENSIONS = [300, 500];
-var CENTRE_X = DIMENSIONS[0] / 2; //Defaulting to biggest window size
-var CENTRE_Y = DIMENSIONS[0] / 2;
-var STAR_SIZE = 0.002*CENTRE_X;
-var S = 0; //Selector variable
-var PROBABILITY = [] //Stores the probability scalar field
-var RADIUS = CENTRE_X*0.9;
+//DEFINE IMPORTANT letIABLES
+let DIMENSIONS = [300, 500]; // side length of the square canvas in which the galaxy is drawn
+let CENTRE_X = DIMENSIONS[0] / 2; //Defaulting to biggest window size
+let CENTRE_Y = DIMENSIONS[0] / 2;
+let STAR_SIZE = 0.002*CENTRE_X;
+let S = 0; //Selector letiable for DIMENSIONS
+let PROBABILITY = [] //Stores the probability scalar field
+let RADIUS = CENTRE_X*0.9;
 
 //LISTENERS
 
-var radius_input = document.getElementById('armRadius');
-
+let radius_input = document.getElementById('armRadius');
 radius_input.addEventListener('radius_input', drawCanvas());
 
 
@@ -42,42 +41,17 @@ function sizeCanvas(s) {
     PROBABILITY = getProbabilityField();
     starField(PROBABILITY, STAR_SIZE);
 
-    //drawArms(b, rad. rot_adjust, fuzz, radians)
+    //Grab selected values from DOM
+    let radius = document.getElementById("armRadius").value;
+    let fuzz_fac = (document.getElementById("fuzzFactor").value)/10;
+    let theta_fac = document.getElementById("thetaFactor").value;
+    let spiral_fac = (document.getElementById("spiralFactor").value)/100;
 
-    var Radius = document.getElementById("armRadius").value;
-    RADIUS = Radius;
-
-    var fuzz_fac = document.getElementById("fuzzFactor").value;
-    FUZZ_FAC = fuzz_fac/10;
-
-    var theta_fac = document.getElementById("thetaFactor").value;
-    THETA_FAC = theta_fac
-
-    var spiral_fac = document.getElementById("spiralFactor").value;
-    SPIRAL_FAC = spiral_fac/100;
-
-    drawArms(SPIRAL_FAC, RADIUS, 0, FUZZ_FAC, THETA_FAC);
-
-    /*
-    spirals(-0.1, RADIUS, 1.94, 2.5, 1, 650);
-    spirals(-0.1, RADIUS, 2, 2.5, 0, 650);
-
-    spirals(-0.1, -RADIUS, 1.94, 2.5, 1, 650);
-    spirals(-0.1, -RADIUS, 2, 2.5, 0, 650);
-
-    spirals(-0.1, RADIUS, 0.44, 2.5, 1, 650);
-    spirals(-0.1, RADIUS, 0.5, 2.5, 0, 650);
-
-    spirals(-0.1, -RADIUS, 0.44, 2.5, 1, 650);
-    spirals(-0.1, -RADIUS, 0.5, 2.5, 0, 650);
-
-    */
-    console.log("drawCanvas finished")
+    drawArms(spiral_fac, radius, 0, fuzz_fac, theta_fac);
 
   }
 
   //FUNCTIONS
-
 
   function drawArms(b, rad, rot_adjust, fuzz, radians)
   {
@@ -97,7 +71,7 @@ function sizeCanvas(s) {
 
   function backgroundHaze(colour) {
 
-    var grd = CTX.createRadialGradient
+    let grd = CTX.createRadialGradient
     (
         CENTRE_X, //x-coord location
         CENTRE_Y, //y-coord location
@@ -108,25 +82,18 @@ function sizeCanvas(s) {
     )
 
     grd.addColorStop(1, "black");
-    grd.addColorStop(0, colour); //A very dark blue
+    grd.addColorStop(0, colour); // Looks nice as a very dark blue
 
     // Fill with gradient
     CTX.fillStyle = grd;
     CTX.fillRect(0, 0, DIMENSIONS[S], DIMENSIONS[S]);
   }
 
-  function centralStar() {
-    var r = DIMENSIONS[S]*0.02;
-    CTX.beginPath();
-    CTX.arc(CENTRE_X, CENTRE_Y, r, 0, 2 * Math.PI, false);
-    CTX.fillStyle = "white";
-    CTX.fill();
-}
-
 function drawRect(x_coord, y_coord, fill_colour) {
+    // This draws a single pixel at a given (x,y) point
     CTX.beginPath();
     CTX.fillRect( x_coord, y_coord, 1, 1 );
-    CTX.fillStyle = fill_colour // "white";
+    CTX.fillStyle = fill_colour 
     CTX.fill();
 }
 
@@ -156,54 +123,52 @@ function probabilityField(p, x, y, dis, spr) {
     // This must iterate through all 90000 pixels on the 300x300 canvas (at a minimum)
 
     // function: f(r) = (P)*e^-(((r - displacement)^2)/spread)
-    // read the equation, take note of all variables
+    // read the equation, take note of all letiables
 
     // r is for radius, which will be calculated in the usual way: sqrt(x^2 + y^2)
     // xy_to_radius has been implemented for this, it will take arguments x, y
 
-    // displacement (var dis) centres the distribution on a certain coordinate relative to r
+    // displacement (let dis) centres the distribution on a certain coordinate relative to r
     // obviously the displacement will always be zero, i.e. at dead centre of galaxy
 
-    // spread (var spr) defines how far it will spread out from the central point
+    // spread (let spr) defines how far it will spread out from the central point
 
-    // P (var p) is a normalisation factor defining the maximum possible probability 
+    // P (let p) is a normalisation factor defining the maximum possible probability 
     // this should not exceed 1 for obvious reasons
 
-    // All variables will be tunable by the user via a slider control on the HTML
+    // All letiables will be tunable by the user via a slider control on the HTML
 
-    var inner_term = (((xy_to_radius(x,y) - dis)**2)/spr)
-    var probability_scalar = p*Math.exp(-inner_term)
+    let inner_term = (((xy_to_radius(x,y) - dis)**2)/spr)
+    let probability_scalar = p*Math.exp(-inner_term)
 
     return probability_scalar;
 }
 
 function getProbabilityField(){
     //grab parameters from DOM and generate probability field array
-    var spread = document.getElementById("spreadRange").value;
-    var sW = DIMENSIONS[S] //sW means screen width
-    var starDensity = document.getElementById("starDensity").value;
-    var starDensity = starDensity/100; //divided by one hundred because range slider can't output floats (I think)
+    let spread = document.getElementById("spreadRange").value;
+    let sW = DIMENSIONS[S] //sW means screen width
+    let starDensity = (document.getElementById("starDensity").value)/100; // Divided by 100 because the slider cannot return floats I believe
 
-    array = [] //results to be returned stored here
+    resultsArray = [] //results to be returned stored here
 
     //generate probability field thereof
-    for (var i = 0; i < sW; i++){
-        for (var j = 0; j < sW; j++){
-        array.push(probabilityField(starDensity, i, j, 0, spread));
+    for (let i = 0; i < sW; i++){
+        for (let j = 0; j < sW; j++){
+            resultsArray.push(probabilityField(starDensity, i, j, 0, spread));
         }
     }
-        return array;
+        return resultsArray;
 }
 
 function starField(probability_array) {
-    var c = 0;
-    var s_w = DIMENSIONS[S] //s_w means screen width
-    for (var i = 0; i < s_w; i++){
-        for (var j = 0; j < s_w; j++){
+    let c = 0;
+    let s_w = DIMENSIONS[S] //s_w means screen width
+    for (let i = 0; i < s_w; i++){
+        for (let j = 0; j < s_w; j++){
             if(Math.random() <= probability_array[c])
             {
                 drawStar(i,j, STAR_SIZE, "white");
-                //drawRect(i,j, "white");
             }
             c = c + 1;
         }
@@ -228,25 +193,25 @@ function spirals(b, r, rot_fac, fuz_fac, arm, theta_arg)
     offset = DIMENSIONS[S]/2;
 
 
-    for(var i = 0; i < theta_arg; i++)
+    for(let i = 0; i < theta_arg; i++)
     {
         theta = degrees_to_radians(i);
 
-        var x = r*Math.exp(b*theta) * Math.cos(theta + Math.PI * rot_fac)
+        let x = r*Math.exp(b*theta) * Math.cos(theta + Math.PI * rot_fac)
         + ((Math.random() - Math.random()) *fuzz /*-2*fuzz*/) * fuz_fac*(1 - 0.6*(i/theta_arg));
 
-        var y = r*Math.exp(b*theta) * Math.sin(theta + Math.PI * rot_fac)
+        let y = r*Math.exp(b*theta) * Math.sin(theta + Math.PI * rot_fac)
         + ((Math.random() - Math.random()) *fuzz /*-2*fuzz*/) * fuz_fac*(1 - 0.6*(i/theta_arg));
 
         spiral_stars.push([x+offset, y+offset]); //offset normalises coordinates to centre on the canvas around the centre
     }
 
-    var ssLen = spiral_stars.length //ssLen = spiral stars length
+    let ssLen = spiral_stars.length //ssLen = spiral stars length
 
-    for(var k = 0; k < ssLen; k++)
+    for(let k = 0; k < ssLen; k++)
     {
-        var x = spiral_stars[k][0];
-        var y = spiral_stars[k][1];
+        let x = spiral_stars[k][0];
+        let y = spiral_stars[k][1];
 
         //x and y are floats so first condition below will almost never be triggered
 
@@ -265,12 +230,13 @@ function spirals(b, r, rot_fac, fuz_fac, arm, theta_arg)
     }
 }
 
+// Helper Functions
+
 function degrees_to_radians(degrees)
 {
-  var pi = Math.PI;
+  let pi = Math.PI;
   return degrees * (pi/180);
 }
-
 
 //Upon opening document for the first time:
 sizeCanvas(0); //defaults to size 0
