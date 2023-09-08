@@ -70,7 +70,7 @@ function drawArms(b, rad, rot_adjust, fuzz, radians)
   }
 
 function backgroundHaze(colour) {
-
+    //creates a deep blue radial gradient centered on the canvas
     let grd = CTX.createRadialGradient
     (
         CENTRE_X, //x-coord location
