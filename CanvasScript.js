@@ -55,16 +55,16 @@ function drawCanvas() {
 
 function drawArms(b, rad, rot_adjust, fuzz, radians)
   {
-    spirals(-b, rad, 1.94 + rot_adjust, fuzz, 1, radians);
+    spirals(-b, rad, 1.94 + rot_adjust, fuzz, 1, radians); // yellow stars of 1 pixel
     spirals(-b, rad, 2 + rot_adjust, fuzz, 0, radians);
 
-    spirals(-b, -rad, 1.94 + rot_adjust, fuzz, 1, radians);
+    spirals(-b, -rad, 1.94 + rot_adjust, fuzz, 1, radians); // yellow stars of 1 pixel
     spirals(-b, -rad, 2 + rot_adjust, fuzz, 0, radians);
 
-    spirals(-b, rad, 0.44 + rot_adjust, fuzz, 1, radians);
+    spirals(-b, rad, 0.44 + rot_adjust, fuzz, 1, radians); // yellow stars of 1 pixel
     spirals(-b, rad, 0.5 + rot_adjust, fuzz, 0, radians);
 
-    spirals(-b, -rad, 0.44 + rot_adjust, fuzz, 1, radians);
+    spirals(-b, -rad, 0.44 + rot_adjust, fuzz, 1, radians); // yellow stars of 1 pixel
     spirals(-b, -rad, 0.5 + rot_adjust, fuzz, 0, radians);
 
   }
@@ -168,9 +168,9 @@ function spirals(b, r, rot_fac, fuz_fac, arm, theta_arg)
     /*
     Draws spiral arms
 
-    b = an arbitrary constant required for logarithmic spirals
+    b = a constant required for logarithmic spirals
     r = galactic disc radius, will be around 130 for small size, and 350 for larger size
-    rot_fac = rotation factor, a scalar multiple of PI
+    rot_fac = rotation factor, a scalar multiple of PI, defines from where on the disc edge the spiral starts
     fuz_fac = fuzz factor, randomly shifts star position in arms
     arm = spiral arm, with 0 as main arm, and 1 as the trailing arm of smaller stars
 
