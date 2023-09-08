@@ -163,9 +163,9 @@ function getProbabilityField(){
 
 function starField(probability_array) {
     let c = 0;
-    let s_w = DIMENSIONS[S] //s_w means screen width
-    for (let i = 0; i < s_w; i++){
-        for (let j = 0; j < s_w; j++){
+    let sW = DIMENSIONS[S] //sW means screen width
+    for (let i = 0; i < sW; i++){
+        for (let j = 0; j < sW; j++){
             if(Math.random() <= probability_array[c])
             {
                 drawStar(i,j, STAR_SIZE, "white");
@@ -206,14 +206,15 @@ function spirals(b, r, rot_fac, fuz_fac, arm, theta_arg)
         spiral_stars.push([x+offset, y+offset]); //offset normalises coordinates to centre on the canvas around the centre
     }
 
-    let ssLen = spiral_stars.length //ssLen = spiral stars length
+    let ssLen = spiral_stars.length 
 
     for(let k = 0; k < ssLen; k++)
     {
         let x = spiral_stars[k][0];
         let y = spiral_stars[k][1];
 
-        //x and y are floats so first condition below will almost never be triggered
+        // These conditions ensure some slight colour and radius variation are added to the stars based on evenness or oddness of x coordinate
+        // the arm that trails slightly behind the main arm, selected with arm = 1 in function arguments, will be light yellow
 
         if (arm == 0 && Math.round(x) % 2 === 0) 
         {
