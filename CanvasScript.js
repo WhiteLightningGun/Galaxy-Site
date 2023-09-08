@@ -19,7 +19,7 @@ radius_input.addEventListener('radius_input', drawCanvas());
 
 
 function sizeCanvas(s) {
-    //Directly set cavas size according to switch
+    //Directly set canvas size according to switch
     S = s;
     canvas.width = DIMENSIONS[S];
     canvas.height = DIMENSIONS[S];
@@ -33,7 +33,7 @@ function sizeCanvas(s) {
     drawCanvas();
   }
 
-  function drawCanvas() {
+function drawCanvas() {
     // Order matters, start with the furthest objects and progress to the "nearest" and biggest
     backgroundHaze("#000038"); //very dark blue
 
@@ -53,7 +53,7 @@ function sizeCanvas(s) {
 
   //FUNCTIONS
 
-  function drawArms(b, rad, rot_adjust, fuzz, radians)
+function drawArms(b, rad, rot_adjust, fuzz, radians)
   {
     spirals(-b, rad, 1.94 + rot_adjust, fuzz, 1, radians);
     spirals(-b, rad, 2 + rot_adjust, fuzz, 0, radians);
@@ -69,7 +69,7 @@ function sizeCanvas(s) {
 
   }
 
-  function backgroundHaze(colour) {
+function backgroundHaze(colour) {
 
     let grd = CTX.createRadialGradient
     (
@@ -178,11 +178,11 @@ function spirals(b, r, rot_fac, fuz_fac, arm, theta_arg)
     It may be possible to exploit the dependency on degree argument theta_arg to get the r proportionality 
     */
 
-    spiral_stars = [];
-    fuzz = 0.03 * Math.abs(r); //this is required for normalising the amount by which star position is jumbled according to current resolution (small/big)
-    offset = DIMENSIONS[S]/2;
+    let spiral_stars = [];
+    let fuzz = 0.03 * Math.abs(r); //this is required for normalising the amount by which star position is jumbled according to current resolution (small/big)
+    let offset = DIMENSIONS[S]/2;
 
-
+    // calculating star positions and adding some random noise via fuzz_fac
     for(let i = 0; i < theta_arg; i++)
     {
         theta = degrees_to_radians(i);
@@ -196,8 +196,8 @@ function spirals(b, r, rot_fac, fuz_fac, arm, theta_arg)
         spiral_stars.push([x+offset, y+offset]); //offset normalises coordinates to centre on the canvas around the centre
     }
 
+    //drawing every star previously calculated
     let ssLen = spiral_stars.length 
-
     for(let k = 0; k < ssLen; k++)
     {
         let x = spiral_stars[k][0];
