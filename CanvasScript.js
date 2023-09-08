@@ -111,7 +111,7 @@ function probabilityField(p, x, y, dis, spr) {
     // This must iterate through all 90000 pixels on the 300x300 canvas (at a minimum)
 
     // function: f(r) = (P)*e^-(((r - displacement)^2)/spread)
-    // read the equation, take note of all letiables
+    // read the equation, take note of all variables
 
     // r is for radius, which will be calculated in the usual way: sqrt(x^2 + y^2)
     // xy_to_radius has been implemented for this in the HELPER FUNCTIONS area below, it will take arguments x, y
