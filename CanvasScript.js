@@ -105,18 +105,6 @@ function drawStar(x_coord, y_coord, star_size, fill_col){
     CTX.fill();
 }
 
-function xy_to_radius(x_coord, y_coord){
-    //This transforms from coordinate system where (0,0) is located at the top right of the canvas to the centre
-    x_coord_prime = x_coord - CENTRE_X;
-    y_coord_prime = -y_coord + CENTRE_Y;
-
-    //radial vector magnitude from central point
-    x_sqrd = Math.pow(x_coord_prime, 2);
-    y_sqrd = Math.pow(y_coord_prime, 2);
-
-    return Math.sqrt(x_sqrd + y_sqrd);
-}
-
 function probabilityField(p, x, y, dis, spr) {
     // Use a normal distribution to randomly distribute coordinates for a star pixel
     // based on proximity to the coordinate centre of the canvas
@@ -126,7 +114,7 @@ function probabilityField(p, x, y, dis, spr) {
     // read the equation, take note of all letiables
 
     // r is for radius, which will be calculated in the usual way: sqrt(x^2 + y^2)
-    // xy_to_radius has been implemented for this, it will take arguments x, y
+    // xy_to_radius has been implemented for this in the HELPER FUNCTIONS area below, it will take arguments x, y
 
     // displacement (let dis) centres the distribution on a certain coordinate relative to r
     // obviously the displacement will always be zero, i.e. at dead centre of galaxy
@@ -136,7 +124,7 @@ function probabilityField(p, x, y, dis, spr) {
     // P (let p) is a normalisation factor defining the maximum possible probability 
     // this should not exceed 1 for obvious reasons
 
-    // All letiables will be tunable by the user via a slider control on the HTML
+    // All variables will be tunable by the user via a slider control on the HTML
 
     let inner_term = (((xy_to_radius(x,y) - dis)**2)/spr)
     let probability_scalar = p*Math.exp(-inner_term)
@@ -145,7 +133,7 @@ function probabilityField(p, x, y, dis, spr) {
 }
 
 function getProbabilityField(){
-    //grab parameters from DOM and generate probability field array
+    //grab parameters from DOM and generate probability field array applicable to every (x,y) point on canvas
     let spread = document.getElementById("spreadRange").value;
     let sW = DIMENSIONS[S] //sW means screen width
     let starDensity = (document.getElementById("starDensity").value)/100; // Divided by 100 because the slider cannot return floats I believe
@@ -178,6 +166,8 @@ function starField(probability_array) {
 function spirals(b, r, rot_fac, fuz_fac, arm, theta_arg)
 {
     /*
+    Draws spiral arms
+
     b = an arbitrary constant required for logarithmic spirals
     r = galactic disc radius, will be around 130 for small size, and 350 for larger size
     rot_fac = rotation factor, a scalar multiple of PI
@@ -198,10 +188,10 @@ function spirals(b, r, rot_fac, fuz_fac, arm, theta_arg)
         theta = degrees_to_radians(i);
 
         let x = r*Math.exp(b*theta) * Math.cos(theta + Math.PI * rot_fac)
-        + ((Math.random() - Math.random()) *fuzz /*-2*fuzz*/) * fuz_fac*(1 - 0.6*(i/theta_arg));
+        + ((Math.random() - Math.random()) *fuzz) * fuz_fac*(1 - 0.6*(i/theta_arg));
 
         let y = r*Math.exp(b*theta) * Math.sin(theta + Math.PI * rot_fac)
-        + ((Math.random() - Math.random()) *fuzz /*-2*fuzz*/) * fuz_fac*(1 - 0.6*(i/theta_arg));
+        + ((Math.random() - Math.random()) *fuzz) * fuz_fac*(1 - 0.6*(i/theta_arg));
 
         spiral_stars.push([x+offset, y+offset]); //offset normalises coordinates to centre on the canvas around the centre
     }
@@ -231,12 +221,24 @@ function spirals(b, r, rot_fac, fuz_fac, arm, theta_arg)
     }
 }
 
-// Helper Functions
+// HELPER FUNCTIONS
 
 function degrees_to_radians(degrees)
 {
   let pi = Math.PI;
   return degrees * (pi/180);
+}
+
+function xy_to_radius(x_coord, y_coord){
+    //This transforms from coordinate system where (0,0) is located at the top right of the canvas to the centre
+    x_coord_prime = x_coord - CENTRE_X;
+    y_coord_prime = -y_coord + CENTRE_Y;
+
+    //radial vector magnitude from central point
+    x_sqrd = Math.pow(x_coord_prime, 2);
+    y_sqrd = Math.pow(y_coord_prime, 2);
+
+    return Math.sqrt(x_sqrd + y_sqrd);
 }
 
 //Upon opening document for the first time:
