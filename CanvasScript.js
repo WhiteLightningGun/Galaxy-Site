@@ -34,7 +34,7 @@ function sizeCanvas(s) {
   }
 
 function drawCanvas() {
-    // Order matters, start with the furthest objects and progress to the "nearest" and biggest
+    // This is the top-level function that calls all other functions
     backgroundHaze("#000038"); //very dark blue
 
     //generate background haze of stars
