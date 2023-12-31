@@ -1,4 +1,4 @@
 # Galaxy-Site
 Using HTML Canvas and maths to generate a picture of a galaxy
 
-Note to self - it's not too late to make this knick-knack presentable
+One of the first things I ever programmed, I remain oddly proud of it despite it's cluttered presentation.
